@@ -58,11 +58,10 @@
         combos {
                 compatible = "zmk,combos";
 
-                // Both inner thumb keys pressed within 50ms = ENTER.
-                // Each thumb alone is just SPACE. Tighter timeout means
-                // accidental simultaneous presses don't fire ENTER.
+                // Both inner thumb keys pressed within 100ms = ENTER.
+                // Each thumb alone is just SPACE.
                 combo_enter {
-                        timeout-ms = <50>;
+                        timeout-ms = <100>;
                         key-positions = <38 39>;
                         bindings = <&kp RET>;
                 };
