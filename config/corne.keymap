@@ -67,6 +67,65 @@
                 };
         };
 
+        macros {
+                em_personal: em_personal {
+                        // types: danny@dannymiles.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp N &kp Y>
+                                , <&kp LS(N2)>
+                                , <&kp D &kp A &kp N &kp N &kp Y &kp M &kp I &kp L &kp E &kp S>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+
+                em_work: em_work {
+                        // types: daniel.miles@cg-tech.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp I &kp E &kp L &kp DOT>
+                                , <&kp M &kp I &kp L &kp E &kp S>
+                                , <&kp LS(N2)>
+                                , <&kp C &kp G &kp MINUS &kp T &kp E &kp C &kp H>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+
+                em_gmail: em_gmail {
+                        // types: milezey40@gmail.com
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp M &kp I &kp L &kp E &kp Z &kp E &kp Y &kp N4 &kp N0>
+                                , <&kp LS(N2)>
+                                , <&kp G &kp M &kp A &kp I &kp L &kp DOT &kp C &kp O &kp M>
+                                ;
+                };
+
+                em_wavenet: em_wavenet {
+                        // types: danny.miles@wavenet.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp N &kp Y &kp DOT>
+                                , <&kp M &kp I &kp L &kp E &kp S>
+                                , <&kp LS(N2)>
+                                , <&kp W &kp A &kp V &kp E &kp N &kp E &kp T>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
@@ -95,9 +154,9 @@
                 raise_layer {
                         display-name = "RSE";
                         bindings = <
-   &kp TAB   &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp QMARK
-   &kp LCTRL &trans   &kp LS(LG(N1)) &trans &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
+   &kp TAB   &kp EXCL &em_wavenet &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp QMARK
+   &kp LCTRL &trans   &kp LS(LG(N1)) &em_personal &trans   &em_gmail   &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
+   &kp LSHFT &trans   &trans &em_work &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
                              &kp LGUI &trans &kp SPACE     &kp SPACE &trans &kp RALT
                         >;
                 };
