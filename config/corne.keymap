@@ -55,6 +55,77 @@
                 };
         };
 
+        combos {
+                compatible = "zmk,combos";
+
+                // Both inner thumb keys pressed within 100ms = ENTER.
+                // Each thumb alone is just SPACE.
+                combo_enter {
+                        timeout-ms = <100>;
+                        key-positions = <38 39>;
+                        bindings = <&kp RET>;
+                };
+        };
+
+        macros {
+                em_personal: em_personal {
+                        // types: danny@dannymiles.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp N &kp Y>
+                                , <&kp LS(N2)>
+                                , <&kp D &kp A &kp N &kp N &kp Y &kp M &kp I &kp L &kp E &kp S>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+
+                em_work: em_work {
+                        // types: daniel.miles@cg-tech.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp I &kp E &kp L &kp DOT>
+                                , <&kp M &kp I &kp L &kp E &kp S>
+                                , <&kp LS(N2)>
+                                , <&kp C &kp G &kp MINUS &kp T &kp E &kp C &kp H>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+
+                em_gmail: em_gmail {
+                        // types: milezey40@gmail.com
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp M &kp I &kp L &kp E &kp Z &kp E &kp Y &kp N4 &kp N0>
+                                , <&kp LS(N2)>
+                                , <&kp G &kp M &kp A &kp I &kp L &kp DOT &kp C &kp O &kp M>
+                                ;
+                };
+
+                em_wavenet: em_wavenet {
+                        // types: danny.miles@wavenet.co.uk
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <5>;
+                        tap-ms = <5>;
+                        bindings
+                                = <&kp D &kp A &kp N &kp N &kp Y &kp DOT>
+                                , <&kp M &kp I &kp L &kp E &kp S>
+                                , <&kp LS(N2)>
+                                , <&kp W &kp A &kp V &kp E &kp N &kp E &kp T>
+                                , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
+                                ;
+                };
+        };
+
         keymap {
                 compatible = "zmk,keymap";
 
@@ -66,17 +137,17 @@
    &kp ESC   &kp Q       &kp W       &kp E         &kp R         &kp T       &kp Y      &kp U         &kp I         &kp O       &kp P            &kp BSPC
    &kp TAB   &hml LGUI A &hml LALT S &hml LCTRL D  &hml LSHFT F  &kp G       &kp H      &hmr RSHFT J  &hmr RCTRL K  &hmr LALT L &hmr RGUI SEMI   &kp SQT
    &kp LSHFT &kp Z       &kp X       &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT     &kp FSLH         &kp LCTRL
-                                              &kp LGUI &mo 1 &kp RET     &kp SPACE &mo 2 &kp RALT
+                                              &kp LGUI &mo 1 &kp SPACE   &kp SPACE &mo 2 &kp RALT
                         >;
                 };
 
                 lower_layer {
                         display-name = "LWR";
                         bindings = <
-   &kp TAB        &kp N1         &kp N2       &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0 &kp BSPC
-   &bt BT_CLR     &bt BT_SEL 0   &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans &trans
-   &studio_unlock &studio_unlock &trans       &trans       &trans       &trans         &trans   &trans   &trans &trans    &trans &trans
-                                              &kp LGUI &trans &kp RET     &kp SPACE &trans &kp RALT
+   &trans         &kp F1         &kp F2       &kp F3       &kp F4       &kp F5         &kp N7   &kp N8   &kp N9 &kp N0    &trans   &kp BSPC
+   &trans         &kp LEFT       &kp DOWN     &kp UP       &kp RIGHT    &trans         &kp N4   &kp N5   &kp N6 &kp EQUAL &kp PLUS &trans
+   &studio_unlock &studio_unlock &bt BT_CLR   &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2   &kp N1   &kp N2   &kp N3 &kp DOT   &kp MINUS &trans
+                                              &kp LGUI &trans &kp SPACE   &kp SPACE &trans &kp RALT
                         >;
                 };
 
@@ -84,9 +155,9 @@
                         display-name = "RSE";
                         bindings = <
    &kp TAB   &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
-   &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
-   &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LGUI &trans &kp RET       &kp SPACE &trans &kp RALT
+   &kp LCTRL &kp QMARK /* =? */ &kp LS(LG(N1)) &trans &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
+   &kp LSHFT &em_personal &em_work &em_wavenet &em_gmail &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
+                             &kp LGUI &trans &kp SPACE     &kp SPACE &trans &kp RALT
                         >;
                 };
 
