@@ -1,7 +1,7 @@
 layout: {zmk_keyboard: corne}
 layers:
-  default:
-  - TAB
+  BASE:
+  - ESC
   - Q
   - W
   - E
@@ -13,7 +13,7 @@ layers:
   - O
   - P
   - BSPC
-  - LCTRL
+  - TAB
   - {t: A, h: LGUI}
   - {t: S, h: LALT}
   - {t: D, h: LCTRL}
@@ -36,57 +36,57 @@ layers:
   - ','
   - .
   - /
-  - ESC
+  - LCTRL
   - LGUI
-  - lower
+  - LWR
   - SPACE
-  - RET
-  - raise
+  - SPACE
+  - RSE
   - RALT
-  lower:
-  - TAB
-  - '1'
-  - '2'
-  - '3'
-  - '4'
-  - '5'
-  - '6'
+  LWR:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - UP
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - '7'
   - '8'
   - '9'
   - '0'
+  - '&'
   - BSPC
-  - BT CLR
-  - {t: BT, h: '0'}
-  - {t: BT, h: '1'}
-  - {t: BT, h: '2'}
-  - {t: BT, h: '3'}
-  - {t: BT, h: '4'}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - LEFT
   - DOWN
-  - UP
   - RIGHT
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - '&studio_unlock'
-  - '&studio_unlock'
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '4'
+  - '5'
+  - '6'
+  - '='
+  - +
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '1'
+  - '2'
+  - '3'
+  - .
+  - '-'
+  - \
   - LGUI
   - {type: held}
   - SPACE
-  - RET
+  - SPACE
   - {t: ▽, type: trans}
   - RALT
-  raise:
+  RSE:
   - TAB
   - '!'
   - '@'
@@ -100,8 +100,8 @@ layers:
   - )
   - BSPC
   - LCTRL
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '?'
+  - Sft+Gui+1
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
@@ -112,10 +112,10 @@ layers:
   - \
   - '`'
   - LSHFT
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - '&em_personal'
+  - '&em_work'
+  - '&em_wavenet'
+  - '&em_gmail'
   - {t: ▽, type: trans}
   - _
   - +
@@ -126,6 +126,11 @@ layers:
   - LGUI
   - {t: ▽, type: trans}
   - SPACE
-  - RET
+  - SPACE
   - {type: held}
   - RALT
+  HRM: ['', '', '', '', '', '', '', '', '', '', '', '', '', LGUI, LALT, LCTRL, LSHFT, '', '', RSHFT, RCTRL, LALT, RGUI, '', '', '', '', '', '', '', '', '', '', '',
+    '', '', '', '', '', '', '', '']
+combos:
+- p: [38, 39]
+  k: RET
