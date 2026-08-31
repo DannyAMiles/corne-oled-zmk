@@ -174,10 +174,13 @@
                         bindings = <&kp LC(B)>, <&kp N0>;
                 };
 
-                sess_machine: sess_machine {
-                        // Machine switch: tap Ctrl+Alt+Cmd+M (the hotkey skhd
-                        // binds to the machine-switch script on the Macs), pause
-                        // 200ms, then hop to the keyboard's other BLE profile.
+                sess_to_mini: sess_to_mini {
+                        // Machine switch, destination Mac MINI (M = mini):
+                        // tap Ctrl+Alt+Cmd+M (the hotkey skhd binds to the
+                        // switch script on the active Mac -> monitor + mouse
+                        // move over), pause 200ms, then jump the keyboard to
+                        // BLE profile 0 (mini). Deterministic destination -
+                        // no blind profile cycling.
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
                         wait-ms = <30>;
@@ -185,7 +188,23 @@
                         bindings
                                 = <&kp LC(LA(LG(M)))>
                                 , <&macro_wait_time 200>
-                                , <&bt BT_NXT>
+                                , <&bt BT_SEL 0>
+                                ;
+                };
+
+                sess_to_nb: sess_to_nb {
+                        // Machine switch, destination the NOTEBOOK (N):
+                        // currently the MacBook Air, later the Neo - whichever
+                        // laptop holds BLE profile 1. Same hotkey, then jump
+                        // to profile 1.
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings
+                                = <&kp LC(LA(LG(M)))>
+                                , <&macro_wait_time 200>
+                                , <&bt BT_SEL 1>
                                 ;
                 };
         };
@@ -251,7 +270,7 @@
                         bindings = <
    &trans &trans &trans &trans &trans &trans      &trans &trans        &trans        &trans        &trans      &trans
    &trans &trans &trans &trans &trans &trans      &trans &sess_claude1 &sess_claude2 &sess_claude3 &sess_main  &trans
-   &trans &trans &trans &trans &trans &trans      &trans &sess_machine &trans        &trans        &trans      &trans
+   &trans &trans &trans &trans &trans &trans      &sess_to_nb &sess_to_mini &trans   &trans        &trans      &trans
                                  &trans &trans &trans      &trans &trans &trans
                         >;
                 };
