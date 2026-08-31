@@ -17,41 +17,49 @@
 
 / {
         behaviors {
-                // Home-row mods, left hand. Triggers only on opposite-hand keys
-                // + opposite-hand thumbs, so same-hand rolls fall back to tap.
+                // Home-row mods, left hand.
+                // 2026-08-31 "old-board feel": the bilateral
+                // hold-trigger-key-positions restriction is REMOVED (a same-hand
+                // shift now works — hold F, tap a left-hand letter capitalises it
+                // instead of typing "f"), and require-prior-idle-ms is dropped
+                // 250 -> 100 so mid-flow capitals are no longer swallowed.
+                // hold-trigger-on-release is kept but is inert with no
+                // hold-trigger-key-positions (ZMK v0.3 decide_positional_hold()
+                // returns early when the position list is empty).
                 hml: home_row_mod_left {
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
                         tapping-term-ms = <280>;
                         quick-tap-ms = <175>;
-                        require-prior-idle-ms = <250>;
+                        require-prior-idle-ms = <100>;
                         flavor = "balanced";
                         hold-trigger-on-release;
                         bindings = <&kp>, <&kp>;
-                        hold-trigger-key-positions = <
-                                 6  7  8  9 10 11
-                                18 19 20 21 22 23
-                                30 31 32 33 34 35
-                                39 40 41
-                        >;
                 };
 
-                // Home-row mods, right hand.
+                // Home-row mods, right hand. Same tuning as hml.
                 hmr: home_row_mod_right {
                         compatible = "zmk,behavior-hold-tap";
                         #binding-cells = <2>;
                         tapping-term-ms = <280>;
                         quick-tap-ms = <175>;
-                        require-prior-idle-ms = <250>;
+                        require-prior-idle-ms = <100>;
                         flavor = "balanced";
                         hold-trigger-on-release;
                         bindings = <&kp>, <&kp>;
-                        hold-trigger-key-positions = <
-                                 0  1  2  3  4  5
-                                12 13 14 15 16 17
-                                24 25 26 27 28 29
-                                36 37 38
-                        >;
+                };
+
+                // Session layer tap: tap = the letter, hold = momentary SESS
+                // layer (tmux window / machine switching). Mirrors the HRM
+                // tuning so it feels identical under the fingers.
+                lts: layer_tap_sess {
+                        compatible = "zmk,behavior-hold-tap";
+                        #binding-cells = <2>;
+                        tapping-term-ms = <280>;
+                        quick-tap-ms = <175>;
+                        require-prior-idle-ms = <100>;
+                        flavor = "balanced";
+                        bindings = <&mo>, <&kp>;
                 };
         };
 
@@ -124,6 +132,62 @@
                                 , <&kp DOT &kp C &kp O &kp DOT &kp U &kp K>
                                 ;
                 };
+
+                // --- SESS layer macros ---------------------------------------
+                // tmux window switching: send the prefix (Ctrl+B) then a digit,
+                // spaced 30ms apart so tmux sees two sequential presses.
+                // 0 = main, 1/2/3 = the claude windows.
+
+                sess_claude1: sess_claude1 {
+                        // tmux: prefix + 1  -> claude1
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings = <&kp LC(B)>, <&kp N1>;
+                };
+
+                sess_claude2: sess_claude2 {
+                        // tmux: prefix + 2  -> claude2
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings = <&kp LC(B)>, <&kp N2>;
+                };
+
+                sess_claude3: sess_claude3 {
+                        // tmux: prefix + 3  -> claude3
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings = <&kp LC(B)>, <&kp N3>;
+                };
+
+                sess_main: sess_main {
+                        // tmux: prefix + 0  -> main
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings = <&kp LC(B)>, <&kp N0>;
+                };
+
+                sess_machine: sess_machine {
+                        // Machine switch: tap Ctrl+Alt+Cmd+M (the hotkey skhd
+                        // binds to the machine-switch script on the Macs), pause
+                        // 200ms, then hop to the keyboard's other BLE profile.
+                        compatible = "zmk,behavior-macro";
+                        #binding-cells = <0>;
+                        wait-ms = <30>;
+                        tap-ms = <30>;
+                        bindings
+                                = <&kp LC(LA(LG(M)))>
+                                , <&macro_wait_time 200>
+                                , <&bt BT_NXT>
+                                ;
+                };
         };
 
         keymap {
@@ -136,7 +200,7 @@
                         bindings = <
    &kp ESC   &kp Q       &kp W       &kp E         &kp R         &kp T       &kp Y      &kp U         &kp I         &kp O       &kp P            &kp BSPC
    &kp TAB   &hml LGUI A &hml LALT S &hml LCTRL D  &hml LSHFT F  &kp G       &kp H      &hmr RSHFT J  &hmr RCTRL K  &hmr LALT L &hmr RGUI SEMI   &kp SQT
-   &kp LSHFT &kp Z       &kp X       &kp C         &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT     &kp FSLH         &kp LCTRL
+   &kp LSHFT &kp Z       &kp X       &lts 4 C      &kp V         &kp B       &kp N      &kp M         &kp COMMA     &kp DOT     &kp FSLH         &kp LCTRL
                                               &kp LGUI &mo 1 &kp SPACE   &kp SPACE &mo 2 &kp RALT
                         >;
                 };
@@ -171,6 +235,24 @@
    &none &kp LGUI /* =⌘ */ &kp LALT /* =⌥ */ &kp LCTRL /* =⌃ */ &kp LSHFT /* =⇧ */ &none  &none &kp RSHFT /* =⇧ */ &kp RCTRL /* =⌃ */ &kp LALT /* =⌥ */ &kp RGUI /* =⌘ */ &none
    &none &none           &none           &none            &none            &none  &none &none            &none            &none           &none            &none
                                                        &none &none &none      &none &none &none
+                        >;
+                };
+
+                // Session layer (index 4) — momentary, held via C on the base
+                // layer (&lts 4 C: tap = c, hold = SESS).
+                //   J   -> tmux prefix + 1  (claude1)
+                //   K   -> tmux prefix + 2  (claude2)
+                //   L   -> tmux prefix + 3  (claude3)
+                //   ;   -> tmux prefix + 0  (main)
+                //   M   -> Ctrl+Alt+Cmd+M, then switch BLE profile (machine hop)
+                // Everything else is &trans, so a mis-held C still types normally.
+                sess_layer {
+                        display-name = "SESS";
+                        bindings = <
+   &trans &trans &trans &trans &trans &trans      &trans &trans        &trans        &trans        &trans      &trans
+   &trans &trans &trans &trans &trans &trans      &trans &sess_claude1 &sess_claude2 &sess_claude3 &sess_main  &trans
+   &trans &trans &trans &trans &trans &trans      &trans &sess_machine &trans        &trans        &trans      &trans
+                                 &trans &trans &trans      &trans &trans &trans
                         >;
                 };
         };
