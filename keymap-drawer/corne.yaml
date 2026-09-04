@@ -28,7 +28,7 @@ layers:
   - LSHFT
   - Z
   - X
-  - C
+  - {t: C, h: SESS}
   - V
   - B
   - N
@@ -131,6 +131,49 @@ layers:
   - RALT
   HRM: ['', '', '', '', '', '', '', '', '', '', '', '', '', LGUI, LALT, LCTRL, LSHFT, '', '', RSHFT, RCTRL, LALT, RGUI, '', '', '', '', '', '', '', '', '', '', '',
     '', '', '', '', '', '', '', '']
+  SESS:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&sess_claude1'
+  - '&sess_claude2'
+  - '&sess_claude3'
+  - '&sess_main'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '&sess_to_nb'
+  - '&sess_to_mini'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
 combos:
 - p: [38, 39]
   k: RET
