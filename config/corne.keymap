@@ -195,14 +195,21 @@
                 sess_to_nb: sess_to_nb {
                         // Machine switch, destination the NOTEBOOK (N):
                         // currently the MacBook Air, later the Neo - whichever
-                        // laptop holds BLE profile 1. Same hotkey, then jump
-                        // to profile 1.
+                        // laptop holds BLE profile 1. Sends its OWN hotkey
+                        // Ctrl+Alt+Cmd+N (2026-09-04 fix: the old shared M
+                        // hotkey made the host side RELATIVE - "push the desk
+                        // away from whoever receives it" - so a press landing
+                        // on the destination Mac moved mouse + monitor the
+                        // wrong way while the keyboard hopped correctly. With
+                        // distinct hotkeys skhd maps M -> desk-to-mini.sh and
+                        // N -> desk-to-air.sh on BOTH Macs: absolute, not a
+                        // toggle), then jump to profile 1.
                         compatible = "zmk,behavior-macro";
                         #binding-cells = <0>;
                         wait-ms = <30>;
                         tap-ms = <30>;
                         bindings
-                                = <&kp LC(LA(LG(M)))>
+                                = <&kp LC(LA(LG(N)))>
                                 , <&macro_wait_time 200>
                                 , <&bt BT_SEL 1>
                                 ;
@@ -263,7 +270,8 @@
                 //   K   -> tmux prefix + 2  (claude2)
                 //   L   -> tmux prefix + 3  (claude3)
                 //   ;   -> tmux prefix + 0  (main)
-                //   M   -> Ctrl+Alt+Cmd+M, then switch BLE profile (machine hop)
+                //   M   -> Ctrl+Alt+Cmd+M, then BLE profile 0 (desk -> Mac mini)
+                //   N   -> Ctrl+Alt+Cmd+N, then BLE profile 1 (desk -> notebook)
                 // Everything else is &trans, so a mis-held C still types normally.
                 sess_layer {
                         display-name = "SESS";
