@@ -175,6 +175,10 @@
                 };
 
                 sess_to_mini: sess_to_mini {
+                        // 2026-11-22: after the hop, tap F20 - it lands ONLY on the
+                        // destination Mac, where trackpad-follow sees a Corne
+                        // keypress and pulls the Magic Trackpad over at once
+                        // (F20 is unbound everywhere and inert on macOS).
                         // Machine switch, destination Mac MINI (M = mini):
                         // tap Ctrl+Alt+Cmd+M (the hotkey skhd binds to the
                         // switch script on the active Mac -> monitor + mouse
@@ -189,6 +193,8 @@
                                 = <&kp LC(LA(LG(M)))>
                                 , <&macro_wait_time 200>
                                 , <&bt BT_SEL 0>
+                                , <&macro_wait_time 300>
+                                , <&kp F20>
                                 ;
                 };
 
@@ -212,6 +218,8 @@
                                 = <&kp LC(LA(LG(N)))>
                                 , <&macro_wait_time 200>
                                 , <&bt BT_SEL 1>
+                                , <&macro_wait_time 300>
+                                , <&kp F20>
                                 ;
                 };
         };
